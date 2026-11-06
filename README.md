@@ -1,0 +1,53 @@
+# AutoTiler
+
+A native macOS app that tiles windows on one monitor, Hyprland-style. It never rearranges anything on its own: windows are only tiled when you press a shortcut, use the menu-bar or Dock menu, or type a command.
+
+Free-form commands ("give me more breathing room") are understood by Ollama's [d3](https://ollama.com/library/d3) decision model, which picks one option from a fixed list in a single pass. No text is generated, so it is cheap and fast. Exact phrases like `retile` or `gap 12` never touch the model.
+
+## Requirements
+
+- macOS 13 or later, Xcode
+- Accessibility permission (the app asks on first launch)
+- Optional, for free-form commands: [Ollama](https://ollama.com) with `ollama pull d3:2b`
+
+## Run
+
+```sh
+open Autotiler.xcodeproj
+```
+
+Press ⌘R in Xcode. The app is ad-hoc signed, so macOS may ask you to grant Accessibility access again after a rebuild.
+
+## Shortcuts
+
+All shortcuts use ⌃⌥ (Control + Option).
+
+| Keys | Action |
+|---|---|
+| T | Retile now |
+| L | Cycle layout: dwindle, master, columns |
+| ← / → | Focus previous / next window |
+| ⇧ ← / ⇧ → | Swap focused window with its neighbour |
+| Return | Promote focused window to master |
+| F | Float / unfloat focused window |
+| M | Tile on the next monitor |
+| = / − | Increase / decrease gap |
+| Space | Open the command prompt |
+
+The same actions are in the menu-bar icon menu and the Dock icon menu.
+
+## Command prompt
+
+Exact phrases run locally: `retile`, `dwindle`, `master`, `columns`, `float`, `promote`, `monitor`, `gap+`, `gap-`, `gap 12`.
+
+Anything else is sent to d3 at `http://127.0.0.1:11434/v1/systemone`. The result runs only if its confidence is at least 50% and it is not the "unrelated" choice. Each request maps to a single command.
+
+## Layouts
+
+- **dwindle**: each window takes half of the remaining space, splitting along its longer side.
+- **master**: one large window beside an evenly split stack.
+- **columns**: equal side-by-side columns.
+
+Minimized, fullscreen, and non-resizable windows are ignored. Floated windows are left where they are.
+
+See [TREE.md](TREE.md) for the code layout.

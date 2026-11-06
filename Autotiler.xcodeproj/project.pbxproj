@@ -1,0 +1,237 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A000000000000000000000C8 /* AutotilerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000064 /* AutotilerApp.swift */; };
+		A000000000000000000000C9 /* CommandInterpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000065 /* CommandInterpreter.swift */; };
+		A000000000000000000000CA /* CommandPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000066 /* CommandPrompt.swift */; };
+		A000000000000000000000CB /* HotKeyCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000067 /* HotKeyCenter.swift */; };
+		A000000000000000000000CC /* Tiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000068 /* Tiler.swift */; };
+		A000000000000000000000CD /* TilingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000069 /* TilingLayout.swift */; };
+		A000000000000000000000CE /* WindowServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000006A /* WindowServer.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A00000000000000000000064 /* AutotilerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutotilerApp.swift; sourceTree = "<group>"; };
+		A00000000000000000000065 /* CommandInterpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandInterpreter.swift; sourceTree = "<group>"; };
+		A00000000000000000000066 /* CommandPrompt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandPrompt.swift; sourceTree = "<group>"; };
+		A00000000000000000000067 /* HotKeyCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotKeyCenter.swift; sourceTree = "<group>"; };
+		A00000000000000000000068 /* Tiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tiler.swift; sourceTree = "<group>"; };
+		A00000000000000000000069 /* TilingLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilingLayout.swift; sourceTree = "<group>"; };
+		A0000000000000000000006A /* WindowServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowServer.swift; sourceTree = "<group>"; };
+		A00000000000000000000003 /* Autotiler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Autotiler.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A00000000000000000000008 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A00000000000000000000004 = {
+			isa = PBXGroup;
+			children = (
+				A00000000000000000000005 /* Autotiler */,
+				A00000000000000000000006 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A00000000000000000000005 /* Autotiler */ = {
+			isa = PBXGroup;
+			children = (
+				A00000000000000000000064 /* AutotilerApp.swift */,
+				A00000000000000000000065 /* CommandInterpreter.swift */,
+				A00000000000000000000066 /* CommandPrompt.swift */,
+				A00000000000000000000067 /* HotKeyCenter.swift */,
+				A00000000000000000000068 /* Tiler.swift */,
+				A00000000000000000000069 /* TilingLayout.swift */,
+				A0000000000000000000006A /* WindowServer.swift */,
+			);
+			path = Autotiler;
+			sourceTree = "<group>";
+		};
+		A00000000000000000000006 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A00000000000000000000003 /* Autotiler.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A00000000000000000000002 /* Autotiler */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A0000000000000000000000B /* Build configuration list for PBXNativeTarget "Autotiler" */;
+			buildPhases = (
+				A00000000000000000000007 /* Sources */,
+				A00000000000000000000008 /* Frameworks */,
+				A00000000000000000000009 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Autotiler;
+			productName = Autotiler;
+			productReference = A00000000000000000000003 /* Autotiler.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A00000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+			};
+			buildConfigurationList = A0000000000000000000000A /* Build configuration list for PBXProject "Autotiler" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A00000000000000000000004;
+			productRefGroup = A00000000000000000000006 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A00000000000000000000002 /* Autotiler */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A00000000000000000000009 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A00000000000000000000007 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A000000000000000000000C8 /* AutotilerApp.swift in Sources */,
+				A000000000000000000000C9 /* CommandInterpreter.swift in Sources */,
+				A000000000000000000000CA /* CommandPrompt.swift in Sources */,
+				A000000000000000000000CB /* HotKeyCenter.swift in Sources */,
+				A000000000000000000000CC /* Tiler.swift in Sources */,
+				A000000000000000000000CD /* TilingLayout.swift in Sources */,
+				A000000000000000000000CE /* WindowServer.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A0000000000000000000000C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+			};
+			name = Debug;
+		};
+		A0000000000000000000000D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		A0000000000000000000000E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Autotiler;
+								LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.autotiler.Autotiler;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A0000000000000000000000F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Autotiler;
+								LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.autotiler.Autotiler;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A0000000000000000000000A /* Build configuration list for PBXProject "Autotiler" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A0000000000000000000000C /* Debug */,
+				A0000000000000000000000D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A0000000000000000000000B /* Build configuration list for PBXNativeTarget "Autotiler" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A0000000000000000000000E /* Debug */,
+				A0000000000000000000000F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A00000000000000000000001 /* Project object */;
+}
