@@ -8,7 +8,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private var statusItem: NSStatusItem!
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        requestAccessibilityIfNeeded()
+        if !AXIsProcessTrusted() { explainAndRequestAccessibility() }
         setUpStatusItem()
         registerHotKeys()
     }
@@ -20,7 +20,20 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         app.run()
     }
 
-    private func requestAccessibilityIfNeeded() {
+    /// macOS words its own permission dialog generically, so explain the request first and only then trigger it.
+    @objc private func explainAndRequestAccessibility() {
+        NSApp.activate(ignoringOtherApps: true)
+        let alert = NSAlert()
+        alert.messageText = "Autotiler needs Accessibility access"
+        alert.informativeText = """
+            Autotiler arranges your windows by reading their positions and sizes and moving or resizing them. \
+            macOS only allows this for apps with Accessibility permission.
+
+            Autotiler uses it for nothing else: it never reads window contents, and it only rearranges windows when you press a shortcut or choose a command.
+            """
+        alert.addButton(withTitle: "Continue")
+        alert.addButton(withTitle: "Not Now")
+        guard alert.runModal() == .alertFirstButtonReturn else { return }
         // The literal is kAXTrustedCheckOptionPrompt, which Swift 6 treats as unsafe shared state.
         AXIsProcessTrustedWithOptions(["AXTrustedCheckOptionPrompt": true] as CFDictionary)
     }
@@ -41,9 +54,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             (kVK_LeftArrow, ctrlOpt | shiftKey, .swap(step: -1)),
         ]
         for (key, modifiers, command) in bindings {
-            HotKeyCenter.shared.register(keyCode: key, modifiers: modifiers) { [tiler] in tiler.perform(command) }
+            HotKeyCenter.shared.register(keyCode: key, modifiers: modifiers) { [weak self] in self?.run(command) }
         }
-        HotKeyCenter.shared.register(keyCode: kVK_Space, modifiers: ctrlOpt) { [prompt] in prompt.show() }
+        HotKeyCenter.shared.register(keyCode: kVK_Space, modifiers: ctrlOpt) { [weak self] in self?.showPrompt() }
     }
 
     func applicationDockMenu(_ sender: NSApplication) -> NSMenu? {
@@ -66,11 +79,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     func menuNeedsUpdate(_ menu: NSMenu) {
         menu.removeAllItems()
         if !AXIsProcessTrusted() {
-            menu.addItem(withTitle: "Grant Accessibility Access…", action: #selector(openAccessibilitySettings), keyEquivalent: "").target = self
+            menu.addItem(withTitle: "Grant Accessibility Access…", action: #selector(explainAndRequestAccessibility), keyEquivalent: "").target = self
             menu.addItem(.separator())
         }
         addItem(to: menu, "Retile Now  (⌃⌥T)") { $0.perform(.retile) }
-        addItem(to: menu, "Command…  (⌃⌥Space)") { [weak self] _ in self?.prompt.show() }
+        addItem(to: menu, "Command…  (⌃⌥Space)") { [weak self] _ in self?.showPrompt() }
         menu.addItem(.separator())
 
         let layoutMenu = NSMenu()
@@ -102,10 +115,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
 
     @objc private func runMenuAction(_ sender: NSMenuItem) {
+        guard AXIsProcessTrusted() else { return explainAndRequestAccessibility() }
         (sender.representedObject as? () -> Void)?()
     }
 
-    @objc private func openAccessibilitySettings() {
-        NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility")!)
+    private func run(_ command: TilerCommand) {
+        guard AXIsProcessTrusted() else { return explainAndRequestAccessibility() }
+        tiler.perform(command)
+    }
+
+    private func showPrompt() {
+        guard AXIsProcessTrusted() else { return explainAndRequestAccessibility() }
+        prompt.show()
     }
 }
