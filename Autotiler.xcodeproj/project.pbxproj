@@ -14,6 +14,7 @@
 		A000000000000000000000CC /* Tiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000068 /* Tiler.swift */; };
 		A000000000000000000000CD /* TilingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000069 /* TilingLayout.swift */; };
 		A000000000000000000000CE /* WindowServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000006A /* WindowServer.swift */; };
+		A000000000000000000000CF /* AutotilerIcon.svg in Resources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000006B /* AutotilerIcon.svg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		A00000000000000000000068 /* Tiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tiler.swift; sourceTree = "<group>"; };
 		A00000000000000000000069 /* TilingLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilingLayout.swift; sourceTree = "<group>"; };
 		A0000000000000000000006A /* WindowServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowServer.swift; sourceTree = "<group>"; };
+		A0000000000000000000006B /* AutotilerIcon.svg */ = {isa = PBXFileReference; lastKnownFileType = image.svg; path = AutotilerIcon.svg; sourceTree = "<group>"; };
 		A00000000000000000000003 /* Autotiler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Autotiler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -50,6 +52,7 @@
 			isa = PBXGroup;
 			children = (
 				A00000000000000000000064 /* AutotilerApp.swift */,
+				A0000000000000000000006B /* AutotilerIcon.svg */,
 				A00000000000000000000065 /* CommandInterpreter.swift */,
 				A00000000000000000000066 /* CommandPrompt.swift */,
 				A00000000000000000000067 /* HotKeyCenter.swift */,
@@ -121,6 +124,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A000000000000000000000CF /* AutotilerIcon.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

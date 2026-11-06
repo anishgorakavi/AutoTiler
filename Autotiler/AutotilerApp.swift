@@ -8,9 +8,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private var statusItem: NSStatusItem!
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        setApplicationIcon()
         if !AXIsProcessTrusted() { explainAndRequestAccessibility() }
         setUpStatusItem()
         registerHotKeys()
+    }
+
+    private func setApplicationIcon() {
+        guard let iconURL = Bundle.main.url(forResource: "AutotilerIcon", withExtension: "svg"),
+              let icon = NSImage(contentsOf: iconURL) else { return }
+        icon.isTemplate = false
+        NSApplication.shared.applicationIconImage = icon
     }
 
     static func main() {

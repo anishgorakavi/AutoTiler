@@ -10,6 +10,6 @@ Autotiler/                  Application sources.
   WindowServer.swift        Accessibility API and screen-coordinate wrapper: list, move, resize, focus windows.
   HotKeyCenter.swift        Registers global hotkeys through Carbon.
   CommandInterpreter.swift  Maps typed text to a command: exact phrases locally, anything else via d3's /v1/systemone endpoint.
-  CommandPrompt.swift       Floating text-field panel opened by the command shortcut.
+  CommandPrompt.swift       Borderless, semi-transparent terminal-style panel opened by the command shortcut.
 README.md                   Overview, shortcuts and how to run.
 .gitignore                  Keeps Xcode user state and build output out of the repo.
