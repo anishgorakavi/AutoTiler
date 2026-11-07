@@ -4,10 +4,12 @@ Native macOS app (menu bar and Dock) that tiles windows on one monitor Hyprland-
 
 Autotiler.xcodeproj/        Xcode project (app target, ad-hoc signed, no sandbox so the Accessibility API works).
 Autotiler/                  Application sources.
-  AutotilerApp.swift        Entry point: menu-bar item, Dock menu, Accessibility prompt, and the global shortcut table.
+  AutotilerApp.swift        Entry point: menu-bar item, Dock menu, Accessibility prompt, and hotkey registration.
   Tiler.swift               Tiling state (layout, gap, window order, floating set, target monitor), command execution.
   TilingLayout.swift        Pure geometry for the dwindle, master and columns layouts.
   WindowServer.swift        Accessibility API and screen-coordinate wrapper: list, move, resize, focus windows.
+  Shortcuts.swift           The shortcut table: one list that drives both hotkey registration and the help window.
+  HelpWindow.swift          Reference window listing every shortcut; no model involved.
   HotKeyCenter.swift        Registers global hotkeys through Carbon.
   CommandInterpreter.swift  Maps typed text to a command: exact phrases locally, anything else via d3's /v1/systemone endpoint.
   CommandPrompt.swift       Borderless, semi-transparent terminal-style panel opened by the command shortcut.

@@ -2,6 +2,7 @@ import AppKit
 
 enum TilerCommand: Equatable {
     case retile
+    case retileActive
     case setLayout(LayoutKind)
     case cycleLayout
     case setGap(CGFloat)
@@ -48,6 +49,12 @@ final class Tiler {
         defer { pinnedFocus = nil }
         switch command {
         case .retile: break
+        case .retileActive:
+            syncOrder()
+            guard let window = pinnedFocus ?? WindowServer.focusedWindow(),
+                  let slot = slots().first(where: { $0.window == window }) else { return }
+            place(slot.window, at: slot.frame)
+            return
         case .setLayout(let kind): layout = kind
         case .cycleLayout:
             let all = LayoutKind.allCases
@@ -85,14 +92,20 @@ final class Tiler {
     func retile() {
         guard AXIsProcessTrusted() else { return }
         syncOrder()
+        for slot in slots() { place(slot.window, at: slot.frame) }
+    }
+
+    /// The frame each tiled window should occupy under the current layout and gap.
+    private func slots() -> [(window: ManagedWindow, frame: CGRect)] {
         let tiled = tiledWindows()
         let area = WindowServer.accessibilityFrame(of: targetScreen, excludingMenuBarAndDock: true)
         let frames = TilingLayout.frames(count: tiled.count, in: area, kind: layout, gap: gap)
+        return Array(zip(tiled, frames)).map { (window: $0, frame: $1) }
+    }
 
-        for (window, target) in zip(tiled, frames) {
-            if let current = WindowServer.frame(of: window), current.isApproximatelyEqual(to: target) { continue }
-            WindowServer.setFrame(target.integral, of: window)
-        }
+    private func place(_ window: ManagedWindow, at target: CGRect) {
+        if let current = WindowServer.frame(of: window), current.isApproximatelyEqual(to: target) { return }
+        WindowServer.setFrame(target.integral, of: window)
     }
 
     /// Keeps existing windows in place and appends new ones, so a closing window does not reshuffle the rest.

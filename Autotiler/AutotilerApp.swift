@@ -5,6 +5,7 @@ import Carbon.HIToolbox
 final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private let tiler = Tiler()
     private lazy var prompt = CommandPrompt(tiler: tiler)
+    private let help = HelpWindow()
     private var statusItem: NSStatusItem!
 
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -47,24 +48,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
 
     private func registerHotKeys() {
-        let ctrlOpt = controlKey | optionKey
-        let bindings: [(Int, Int, TilerCommand)] = [
-            (kVK_ANSI_T, ctrlOpt, .retile),
-            (kVK_ANSI_L, ctrlOpt, .cycleLayout),
-            (kVK_ANSI_F, ctrlOpt, .toggleFloat),
-            (kVK_Return, ctrlOpt, .promote),
-            (kVK_ANSI_M, ctrlOpt, .nextMonitor),
-            (kVK_ANSI_Equal, ctrlOpt, .adjustGap(Tiler.gapStep)),
-            (kVK_ANSI_Minus, ctrlOpt, .adjustGap(-Tiler.gapStep)),
-            (kVK_RightArrow, ctrlOpt, .focus(step: 1)),
-            (kVK_LeftArrow, ctrlOpt, .focus(step: -1)),
-            (kVK_RightArrow, ctrlOpt | shiftKey, .swap(step: 1)),
-            (kVK_LeftArrow, ctrlOpt | shiftKey, .swap(step: -1)),
-        ]
-        for (key, modifiers, command) in bindings {
-            HotKeyCenter.shared.register(keyCode: key, modifiers: modifiers) { [weak self] in self?.run(command) }
+        for shortcut in Shortcuts.all {
+            HotKeyCenter.shared.register(keyCode: shortcut.keyCode, modifiers: shortcut.modifiers) { [weak self] in
+                switch shortcut.action {
+                case .command(let command): self?.run(command)
+                case .prompt: self?.showPrompt()
+                case .help: self?.help.show()
+                }
+            }
         }
-        HotKeyCenter.shared.register(keyCode: kVK_Space, modifiers: ctrlOpt) { [weak self] in self?.showPrompt() }
     }
 
     func applicationDockMenu(_ sender: NSApplication) -> NSMenu? {
@@ -90,7 +82,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             menu.addItem(withTitle: "Grant Accessibility Access…", action: #selector(explainAndRequestAccessibility), keyEquivalent: "").target = self
             menu.addItem(.separator())
         }
-        addItem(to: menu, "Retile Now  (⌃⌥T)") { $0.perform(.retile) }
+        addItem(to: menu, "Retile All  (⌃⌥T)") { $0.perform(.retile) }
+        addItem(to: menu, "Retile Active Window  (⌃⌥⇧T)") { $0.perform(.retileActive) }
         addItem(to: menu, "Command…  (⌃⌥Space)") { [weak self] _ in self?.showPrompt() }
         menu.addItem(.separator())
 
@@ -110,6 +103,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
         addItem(to: menu, "Gap: \(Int(tiler.gap)) px  (⌃⌥ + / −)") { _ in }.isEnabled = false
         menu.addItem(.separator())
+        menu.addItem(withTitle: "Shortcuts & Help  (⌃⌥/)", action: #selector(showHelp), keyEquivalent: "").target = self
         menu.addItem(withTitle: "Quit Autotiler", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
     }
 
@@ -126,6 +120,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         guard AXIsProcessTrusted() else { return explainAndRequestAccessibility() }
         (sender.representedObject as? () -> Void)?()
     }
+
+    @objc private func showHelp() { help.show() }
 
     private func run(_ command: TilerCommand) {
         guard AXIsProcessTrusted() else { return explainAndRequestAccessibility() }

@@ -34,6 +34,7 @@ enum CommandInterpreter {
         Choice(key: "gap_up", description: "Increase the spacing or gap between windows", command: .adjustGap(Tiler.gapStep)),
         Choice(key: "gap_down", description: "Decrease the spacing or gap between windows", command: .adjustGap(-Tiler.gapStep)),
         Choice(key: "retile", description: "Re-arrange, tidy or fix the windows", command: .retile),
+        Choice(key: "retile_active", description: "Snap only the active or focused window back into its tile", command: .retileActive),
         Choice(key: "toggle_float", description: "Float or unfloat the focused window", command: .toggleFloat),
         Choice(key: "promote", description: "Make the focused window the main, largest window", command: .promote),
         Choice(key: "next_monitor", description: "Tile on another monitor or display", command: .nextMonitor),
@@ -43,7 +44,7 @@ enum CommandInterpreter {
     ]
 
     private static let phrases: [String: TilerCommand] = [
-        "retile": .retile, "tile": .retile,
+        "retile": .retile, "tile": .retile, "snap": .retileActive, "retile window": .retileActive,
         "dwindle": .setLayout(.dwindle), "master": .setLayout(.master), "columns": .setLayout(.columns),
         "float": .toggleFloat, "promote": .promote,
         "next monitor": .nextMonitor, "monitor": .nextMonitor,
