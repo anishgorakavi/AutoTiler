@@ -82,8 +82,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             menu.addItem(withTitle: "Grant Accessibility Access…", action: #selector(explainAndRequestAccessibility), keyEquivalent: "").target = self
             menu.addItem(.separator())
         }
-        addItem(to: menu, "Retile All  (⌃⌥T)") { $0.perform(.retile) }
-        addItem(to: menu, "Retile Active Window  (⌃⌥⇧T)") { $0.perform(.retileActive) }
+        addItem(to: menu, "Smart Retile All (d3)  (⌃⌥T)") { $0.perform(.smartRetile) }
+        addItem(to: menu, "Smart Retile Active (d3)  (⌃⌥⇧T)") { $0.perform(.smartRetileActive) }
+        addItem(to: menu, "Retile All  (⌃⌥R)") { $0.perform(.retile) }
+        addItem(to: menu, "Retile Active Window  (⌃⌥⇧R)") { $0.perform(.retileActive) }
         addItem(to: menu, "Command…  (⌃⌥Space)") { [weak self] _ in self?.showPrompt() }
         menu.addItem(.separator())
 

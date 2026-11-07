@@ -27,12 +27,14 @@ enum Shortcuts {
     private static let withShift = controlKey | optionKey | shiftKey
 
     static let all: [Shortcut] = [
-        Shortcut(section: "Retile", key: "T", keyCode: kVK_ANSI_T, modifiers: base, title: "Retile all windows", action: .command(.retile)),
-        Shortcut(section: "Retile", key: "T", keyCode: kVK_ANSI_T, modifiers: withShift, title: "Retile only the active window", action: .command(.retileActive)),
-        Shortcut(section: "Retile", key: "1", keyCode: kVK_ANSI_1, modifiers: base, title: "Dwindle layout", action: .command(.setLayout(.dwindle))),
-        Shortcut(section: "Retile", key: "2", keyCode: kVK_ANSI_2, modifiers: base, title: "Master layout", action: .command(.setLayout(.master))),
-        Shortcut(section: "Retile", key: "3", keyCode: kVK_ANSI_3, modifiers: base, title: "Columns layout", action: .command(.setLayout(.columns))),
-        Shortcut(section: "Retile", key: "L", keyCode: kVK_ANSI_L, modifiers: base, title: "Cycle layout", action: .command(.cycleLayout)),
+        Shortcut(section: "Smart retile (d3)", key: "T", keyCode: kVK_ANSI_T, modifiers: base, title: "d3 picks the best layout, retile all windows", action: .command(.smartRetile)),
+        Shortcut(section: "Smart retile (d3)", key: "T", keyCode: kVK_ANSI_T, modifiers: withShift, title: "d3 decides: snap, promote or float the active window", action: .command(.smartRetileActive)),
+        Shortcut(section: "Manual retile", key: "R", keyCode: kVK_ANSI_R, modifiers: base, title: "Retile all windows, current layout", action: .command(.retile)),
+        Shortcut(section: "Manual retile", key: "R", keyCode: kVK_ANSI_R, modifiers: withShift, title: "Retile only the active window", action: .command(.retileActive)),
+        Shortcut(section: "Manual retile", key: "1", keyCode: kVK_ANSI_1, modifiers: base, title: "Dwindle layout", action: .command(.setLayout(.dwindle))),
+        Shortcut(section: "Manual retile", key: "2", keyCode: kVK_ANSI_2, modifiers: base, title: "Master layout", action: .command(.setLayout(.master))),
+        Shortcut(section: "Manual retile", key: "3", keyCode: kVK_ANSI_3, modifiers: base, title: "Columns layout", action: .command(.setLayout(.columns))),
+        Shortcut(section: "Manual retile", key: "L", keyCode: kVK_ANSI_L, modifiers: base, title: "Cycle layout", action: .command(.cycleLayout)),
         Shortcut(section: "Windows", key: "←", keyCode: kVK_LeftArrow, modifiers: base, title: "Focus previous window", action: .command(.focus(step: -1))),
         Shortcut(section: "Windows", key: "→", keyCode: kVK_RightArrow, modifiers: base, title: "Focus next window", action: .command(.focus(step: 1))),
         Shortcut(section: "Windows", key: "←", keyCode: kVK_LeftArrow, modifiers: withShift, title: "Swap with previous window", action: .command(.swap(step: -1))),

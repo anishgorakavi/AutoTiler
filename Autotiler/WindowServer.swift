@@ -53,6 +53,12 @@ enum WindowServer {
         return ManagedWindow(element: element)
     }
 
+    static func appName(of window: ManagedWindow) -> String {
+        var pid: pid_t = 0
+        AXUIElementGetPid(window.element, &pid)
+        return NSRunningApplication(processIdentifier: pid)?.localizedName ?? "Unknown"
+    }
+
     static func frame(of window: ManagedWindow) -> CGRect? {
         guard let positionValue: AXValue = attribute(window.element, kAXPositionAttribute),
               let sizeValue: AXValue = attribute(window.element, kAXSizeAttribute) else { return nil }

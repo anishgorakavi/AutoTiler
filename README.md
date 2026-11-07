@@ -20,14 +20,28 @@ Press ⌘R in Xcode. The app is ad-hoc signed, so macOS may ask you to grant Acc
 
 ## Shortcuts
 
-All shortcuts use ⌃⌥ (Control + Option) and run locally with no AI. Press ⌃⌥/ any time for this list in-app.
+All shortcuts use ⌃⌥ (Control + Option). Press ⌃⌥/ any time for this list in-app.
+
+**Smart retile** (uses d3 through local Ollama; falls back to the current layout with a beep if Ollama is unreachable)
 
 | Keys | Action |
 |---|---|
-| T | Retile all windows |
-| ⇧ T | Retile only the active window (snap it back to its slot, leave the rest) |
+| T | d3 picks the best layout for the open apps, then retiles all windows |
+| ⇧ T | d3 decides what the active window should do: snap into its tile, become master, or float |
+
+**Manual retile** (no AI)
+
+| Keys | Action |
+|---|---|
+| R | Retile all windows with the current layout |
+| ⇧ R | Retile only the active window (snap it back to its slot, leave the rest) |
 | 1 / 2 / 3 | Dwindle / master / columns layout |
 | L | Cycle layout |
+
+**Windows and layout** (no AI)
+
+| Keys | Action |
+|---|---|
 | ← / → | Focus previous / next window |
 | ⇧ ← / ⇧ → | Swap active window with its neighbour |
 | Return | Promote active window to master |
@@ -37,13 +51,13 @@ All shortcuts use ⌃⌥ (Control + Option) and run locally with no AI. Press �
 | / | Shortcuts help |
 | Space | Command prompt (optional, uses d3) |
 
-The same actions are in the menu-bar icon menu and the Dock icon menu.
+The same actions are in the menu-bar icon menu and the Dock icon menu. Only app names and the screen size are sent to d3, and only to your local Ollama.
 
 ## Command prompt
 
 Exact phrases run locally: `retile`, `snap` (active window only), `dwindle`, `master`, `columns`, `float`, `promote`, `monitor`, `gap+`, `gap-`, `gap 12`.
 
-Anything else is sent to d3 at `http://127.0.0.1:11434/v1/systemone`. The result runs only if its confidence is at least 50% and it is not the "unrelated" choice. Each request maps to a single command.
+Anything else is sent to d3 at `http://127.0.0.1:11434/v1/systemone`. The result runs only if the chosen option's probability is at least 50% and it is not the "unrelated" choice. Each request maps to a single command.
 
 ## Layouts
 

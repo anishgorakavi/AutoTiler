@@ -47,7 +47,7 @@ final class HelpWindow {
         }
         add("\nAlso in the menu-bar icon menu and the Dock icon menu.\n", font: body, color: .secondaryLabelColor)
         add("Windows are never rearranged automatically: only a command above does it.\n", font: body, color: .secondaryLabelColor)
-        add("Every shortcut except the prompt runs locally with no AI.", font: body, color: .secondaryLabelColor)
+        add("Only smart retile and the prompt use d3 (local Ollama). Everything else runs with no AI.", font: body, color: .secondaryLabelColor)
         return text
     }
 }

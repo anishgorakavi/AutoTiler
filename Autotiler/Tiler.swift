@@ -3,6 +3,8 @@ import AppKit
 enum TilerCommand: Equatable {
     case retile
     case retileActive
+    case smartRetile
+    case smartRetileActive
     case setLayout(LayoutKind)
     case cycleLayout
     case setGap(CGFloat)
@@ -55,6 +57,15 @@ final class Tiler {
                   let slot = slots().first(where: { $0.window == window }) else { return }
             place(slot.window, at: slot.frame)
             return
+        case .smartRetile:
+            syncOrder()
+            smartRetile(appNames: tiledWindows().map(WindowServer.appName))
+            return
+        case .smartRetileActive:
+            syncOrder()
+            guard let window = pinnedFocus ?? WindowServer.focusedWindow() else { return }
+            smartRetileActive(window)
+            return
         case .setLayout(let kind): layout = kind
         case .cycleLayout:
             let all = LayoutKind.allCases
@@ -87,6 +98,43 @@ final class Tiler {
             return
         }
         retile()
+    }
+
+    /// d3 picks the layout that suits the open apps; the geometry is still computed locally.
+    private func smartRetile(appNames: [String]) {
+        let screenSize = targetScreen.frame.size
+        Task { @MainActor in
+            do {
+                if let kind = try await LayoutAdvisor.bestLayout(appNames: appNames, screenSize: screenSize) { layout = kind }
+            } catch {
+                NSSound.beep()  // d3 unreachable: still retile with the current layout
+            }
+            retile()
+        }
+    }
+
+    /// d3 decides whether the active window snaps into its tile, becomes the master, or floats.
+    private func smartRetileActive(_ window: ManagedWindow) {
+        let others = tiledWindows().filter { $0 != window }.map(WindowServer.appName)
+        Task { @MainActor in
+            let role: ActiveWindowRole?
+            do {
+                role = try await LayoutAdvisor.role(ofActive: WindowServer.appName(of: window), others: others)
+            } catch {
+                NSSound.beep()
+                role = nil
+            }
+            switch role ?? .snap {
+            case .snap:
+                if let slot = slots().first(where: { $0.window == window }) { place(slot.window, at: slot.frame) }
+            case .promote:
+                if let index = order.firstIndex(of: window) { order.insert(order.remove(at: index), at: 0) }
+                retile()
+            case .float:
+                floating.insert(window)
+                retile()
+            }
+        }
     }
 
     func retile() {
