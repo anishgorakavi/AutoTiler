@@ -5,6 +5,7 @@ enum TilerCommand: Equatable {
     case retileActive
     case smartRetile
     case smartRetileActive
+    case snap(SnapRegion)
     case setLayout(LayoutKind)
     case cycleLayout
     case setGap(CGFloat)
@@ -65,6 +66,13 @@ final class Tiler {
             syncOrder()
             guard let window = pinnedFocus ?? WindowServer.focusedWindow() else { return }
             smartRetileActive(window)
+            return
+        case .snap(let region):
+            guard let window = pinnedFocus ?? WindowServer.focusedWindow() else { return }
+            let screen = WindowServer.screen(containing: window) ?? targetScreen
+            let area = WindowServer.accessibilityFrame(of: screen, excludingMenuBarAndDock: true)
+            floating.insert(window)  // a hand-placed window must survive the next retile
+            WindowServer.setFrame(region.frame(in: area, gap: gap).integral, of: window)
             return
         case .setLayout(let kind): layout = kind
         case .cycleLayout:

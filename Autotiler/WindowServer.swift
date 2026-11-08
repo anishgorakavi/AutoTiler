@@ -53,6 +53,12 @@ enum WindowServer {
         return ManagedWindow(element: element)
     }
 
+    static func screen(containing window: ManagedWindow) -> NSScreen? {
+        guard let frame = frame(of: window) else { return nil }
+        let center = CGPoint(x: frame.midX, y: frame.midY)
+        return NSScreen.screens.first { accessibilityFrame(of: $0, excludingMenuBarAndDock: false).contains(center) }
+    }
+
     static func appName(of window: ManagedWindow) -> String {
         var pid: pid_t = 0
         AXUIElementGetPid(window.element, &pid)

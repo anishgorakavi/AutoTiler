@@ -96,6 +96,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
         menu.addItem(withTitle: "Layout  (⌃⌥L)", action: nil, keyEquivalent: "").submenu = layoutMenu
 
+        let snapMenu = NSMenu()
+        for shortcut in Shortcuts.all where shortcut.section == Shortcuts.snapSection {
+            guard case .command(let command) = shortcut.action else { continue }
+            addItem(to: snapMenu, "\(shortcut.title)  (\(shortcut.label))") { $0.perform(command) }
+        }
+        menu.addItem(withTitle: "Snap Active Window", action: nil, keyEquivalent: "").submenu = snapMenu
+
         let monitorMenu = NSMenu()
         for screen in NSScreen.screens {
             let item = addItem(to: monitorMenu, screen.localizedName) { $0.setTargetScreen(screen) }

@@ -6,6 +6,29 @@ enum LayoutKind: String, CaseIterable {
     case columns
 }
 
+/// A hand-placed position on a screen: a half or a third.
+enum SnapRegion: String, CaseIterable {
+    case leftHalf, rightHalf, topHalf, bottomHalf
+    case leftThird, centerThird, rightThird
+
+    /// Uses the same outer and inner gap as the tiling layouts so snapped windows line up with tiled ones.
+    /// `area` is in Accessibility coordinates, so "top" is the smaller y.
+    func frame(in area: CGRect, gap: CGFloat) -> CGRect {
+        switch self {
+        case .leftHalf: return TilingLayout.frames(count: 2, in: area, kind: .columns, gap: gap)[0]
+        case .rightHalf: return TilingLayout.frames(count: 2, in: area, kind: .columns, gap: gap)[1]
+        case .leftThird: return TilingLayout.frames(count: 3, in: area, kind: .columns, gap: gap)[0]
+        case .centerThird: return TilingLayout.frames(count: 3, in: area, kind: .columns, gap: gap)[1]
+        case .rightThird: return TilingLayout.frames(count: 3, in: area, kind: .columns, gap: gap)[2]
+        case .topHalf, .bottomHalf:
+            let usable = area.insetBy(dx: gap, dy: gap)
+            let height = (usable.height - gap) / 2
+            let y = self == .topHalf ? usable.minY : usable.minY + height + gap
+            return CGRect(x: usable.minX, y: y, width: usable.width, height: height)
+        }
+    }
+}
+
 /// Pure geometry: turns a window count and a work area into one frame per window.
 /// Frames are returned in the same coordinate space as `area`.
 enum TilingLayout {

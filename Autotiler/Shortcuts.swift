@@ -17,7 +17,7 @@ struct Shortcut {
     /// Human-readable chord, e.g. "⌃⌥⇧T".
     var label: String {
         (modifiers & controlKey != 0 ? "⌃" : "") + (modifiers & optionKey != 0 ? "⌥" : "")
-            + (modifiers & shiftKey != 0 ? "⇧" : "") + key
+            + (modifiers & shiftKey != 0 ? "⇧" : "") + (modifiers & cmdKey != 0 ? "⌘" : "") + key
     }
 }
 
@@ -25,6 +25,8 @@ struct Shortcut {
 enum Shortcuts {
     private static let base = controlKey | optionKey
     private static let withShift = controlKey | optionKey | shiftKey
+    private static let snapMods = controlKey | optionKey | cmdKey
+    static let snapSection = "Snap active window (1/2, 1/3)"
 
     static let all: [Shortcut] = [
         Shortcut(section: "Smart retile (d3)", key: "T", keyCode: kVK_ANSI_T, modifiers: base, title: "d3 picks the best layout, retile all windows", action: .command(.smartRetile)),
@@ -35,6 +37,13 @@ enum Shortcuts {
         Shortcut(section: "Manual retile", key: "2", keyCode: kVK_ANSI_2, modifiers: base, title: "Master layout", action: .command(.setLayout(.master))),
         Shortcut(section: "Manual retile", key: "3", keyCode: kVK_ANSI_3, modifiers: base, title: "Columns layout", action: .command(.setLayout(.columns))),
         Shortcut(section: "Manual retile", key: "L", keyCode: kVK_ANSI_L, modifiers: base, title: "Cycle layout", action: .command(.cycleLayout)),
+        Shortcut(section: snapSection, key: "←", keyCode: kVK_LeftArrow, modifiers: snapMods, title: "Left half", action: .command(.snap(.leftHalf))),
+        Shortcut(section: snapSection, key: "→", keyCode: kVK_RightArrow, modifiers: snapMods, title: "Right half", action: .command(.snap(.rightHalf))),
+        Shortcut(section: snapSection, key: "↑", keyCode: kVK_UpArrow, modifiers: snapMods, title: "Top half", action: .command(.snap(.topHalf))),
+        Shortcut(section: snapSection, key: "↓", keyCode: kVK_DownArrow, modifiers: snapMods, title: "Bottom half", action: .command(.snap(.bottomHalf))),
+        Shortcut(section: snapSection, key: "1", keyCode: kVK_ANSI_1, modifiers: snapMods, title: "Left third", action: .command(.snap(.leftThird))),
+        Shortcut(section: snapSection, key: "2", keyCode: kVK_ANSI_2, modifiers: snapMods, title: "Center third", action: .command(.snap(.centerThird))),
+        Shortcut(section: snapSection, key: "3", keyCode: kVK_ANSI_3, modifiers: snapMods, title: "Right third", action: .command(.snap(.rightThird))),
         Shortcut(section: "Windows", key: "←", keyCode: kVK_LeftArrow, modifiers: base, title: "Focus previous window", action: .command(.focus(step: -1))),
         Shortcut(section: "Windows", key: "→", keyCode: kVK_RightArrow, modifiers: base, title: "Focus next window", action: .command(.focus(step: 1))),
         Shortcut(section: "Windows", key: "←", keyCode: kVK_LeftArrow, modifiers: withShift, title: "Swap with previous window", action: .command(.swap(step: -1))),

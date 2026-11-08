@@ -18,6 +18,8 @@
 		A000000000000000000000D0 /* Tiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000006C /* Tiler.swift */; };
 		A000000000000000000000D1 /* TilingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000006D /* TilingLayout.swift */; };
 		A000000000000000000000D2 /* WindowServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000006E /* WindowServer.swift */; };
+		A000000000000000000000DC /* TilingLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000078 /* TilingLayoutTests.swift */; };
+		A000000000000000000000DD /* TilingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000006D /* TilingLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,11 +34,20 @@
 		A0000000000000000000006C /* Tiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tiler.swift; sourceTree = "<group>"; };
 		A0000000000000000000006D /* TilingLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilingLayout.swift; sourceTree = "<group>"; };
 		A0000000000000000000006E /* WindowServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowServer.swift; sourceTree = "<group>"; };
+		A00000000000000000000078 /* TilingLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilingLayoutTests.swift; sourceTree = "<group>"; };
+		A00000000000000000000015 /* AutotilerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AutotilerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A00000000000000000000003 /* Autotiler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Autotiler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		A00000000000000000000008 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A00000000000000000000018 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -50,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				A00000000000000000000005 /* Autotiler */,
+				A00000000000000000000016 /* AutotilerTests */,
 				A00000000000000000000006 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -72,10 +84,19 @@
 			path = Autotiler;
 			sourceTree = "<group>";
 		};
+		A00000000000000000000016 /* AutotilerTests */ = {
+			isa = PBXGroup;
+			children = (
+				A00000000000000000000078 /* TilingLayoutTests.swift */,
+			);
+			path = AutotilerTests;
+			sourceTree = "<group>";
+		};
 		A00000000000000000000006 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				A00000000000000000000003 /* Autotiler.app */,
+				A00000000000000000000015 /* AutotilerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -99,6 +120,22 @@
 			productName = Autotiler;
 			productReference = A00000000000000000000003 /* Autotiler.app */;
 			productType = "com.apple.product-type.application";
+		};
+		A00000000000000000000014 /* AutotilerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A0000000000000000000001A /* Build configuration list for PBXNativeTarget "AutotilerTests" */;
+			buildPhases = (
+				A00000000000000000000017 /* Sources */,
+				A00000000000000000000018 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AutotilerTests;
+			productName = AutotilerTests;
+			productReference = A00000000000000000000015 /* AutotilerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -124,6 +161,7 @@
 			projectRoot = "";
 			targets = (
 				A00000000000000000000002 /* Autotiler */,
+				A00000000000000000000014 /* AutotilerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -154,6 +192,15 @@
 				A000000000000000000000D0 /* Tiler.swift in Sources */,
 				A000000000000000000000D1 /* TilingLayout.swift in Sources */,
 				A000000000000000000000D2 /* WindowServer.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A00000000000000000000017 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A000000000000000000000DC /* TilingLayoutTests.swift in Sources */,
+				A000000000000000000000DD /* TilingLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,7 +239,7 @@
 			};
 			name = Release;
 		};
-		A0000000000000000000000E /* Debug */ = {
+		A0000000000000000000001B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
@@ -209,7 +256,7 @@
 			};
 			name = Debug;
 		};
-		A0000000000000000000000F /* Release */ = {
+		A0000000000000000000001C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
@@ -222,6 +269,32 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.autotiler.Autotiler;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		A0000000000000000000001E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.autotiler.AutotilerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A0000000000000000000001F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.autotiler.AutotilerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -241,8 +314,17 @@
 		A0000000000000000000000B /* Build configuration list for PBXNativeTarget "Autotiler" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A0000000000000000000000E /* Debug */,
-				A0000000000000000000000F /* Release */,
+				A0000000000000000000001B /* Debug */,
+				A0000000000000000000001C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A0000000000000000000001A /* Build configuration list for PBXNativeTarget "AutotilerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A0000000000000000000001E /* Debug */,
+				A0000000000000000000001F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

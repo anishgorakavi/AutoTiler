@@ -16,7 +16,7 @@ Free-form commands ("give me more breathing room") are understood by Ollama's [d
 open Autotiler.xcodeproj
 ```
 
-Press ⌘R in Xcode. The app is ad-hoc signed, so macOS may ask you to grant Accessibility access again after a rebuild.
+Press ⌘R in Xcode. Run the geometry tests with the `AutotilerTests` scheme (⌘U). The app is ad-hoc signed, so macOS may ask you to grant Accessibility access again after a rebuild.
 
 ## Shortcuts
 
@@ -38,6 +38,16 @@ All shortcuts use ⌃⌥ (Control + Option). Press ⌃⌥/ any time for this lis
 | 1 / 2 / 3 | Dwindle / master / columns layout |
 | L | Cycle layout |
 
+**Snap the active window to a half or third** (no AI; hold ⌃⌥⌘)
+
+| Keys | Action |
+|---|---|
+| ← / → | Left / right half |
+| ↑ / ↓ | Top / bottom half |
+| 1 / 2 / 3 | Left / center / right third |
+
+A snapped window floats, so retiling won't move it back. Press ⌃⌥F to return it to the layout. Halves and thirds use the same gap as the tiled layouts and are placed on whichever monitor the window is on. The command prompt understands the same positions ("left half", "right third", or "put this on the left side").
+
 **Windows and layout** (no AI)
 
 | Keys | Action |
@@ -55,7 +65,7 @@ The same actions are in the menu-bar icon menu and the Dock icon menu. Only app 
 
 ## Command prompt
 
-Exact phrases run locally: `retile`, `snap` (active window only), `dwindle`, `master`, `columns`, `float`, `promote`, `monitor`, `gap+`, `gap-`, `gap 12`.
+Exact phrases run locally: `left half`, `right half`, `top half`, `bottom half`, `left third`, `center third`, `right third`, `retile`, `snap` (active window only), `dwindle`, `master`, `columns`, `float`, `promote`, `monitor`, `gap+`, `gap-`, `gap 12`.
 
 Anything else is sent to d3 at `http://127.0.0.1:11434/v1/systemone`. The result runs only if the chosen option's probability is at least 50% and it is not the "unrelated" choice. Each request maps to a single command.
 

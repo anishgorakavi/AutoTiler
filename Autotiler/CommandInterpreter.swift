@@ -37,11 +37,20 @@ enum CommandInterpreter {
         Choice(key: "next_monitor", description: "Tile on another monitor or display", command: .nextMonitor),
         Choice(key: "focus_next", description: "Focus the next window", command: .focus(step: 1)),
         Choice(key: "focus_previous", description: "Focus the previous window", command: .focus(step: -1)),
+        Choice(key: "snap_left_half", description: "Put the active window on the left half of the screen", command: .snap(.leftHalf)),
+        Choice(key: "snap_right_half", description: "Put the active window on the right half of the screen", command: .snap(.rightHalf)),
+        Choice(key: "snap_top_half", description: "Put the active window on the top half of the screen", command: .snap(.topHalf)),
+        Choice(key: "snap_bottom_half", description: "Put the active window on the bottom half of the screen", command: .snap(.bottomHalf)),
+        Choice(key: "snap_left_third", description: "Put the active window in the left third of the screen", command: .snap(.leftThird)),
+        Choice(key: "snap_center_third", description: "Put the active window in the middle third of the screen", command: .snap(.centerThird)),
+        Choice(key: "snap_right_third", description: "Put the active window in the right third of the screen", command: .snap(.rightThird)),
         Choice(key: noMatchKey, description: "The request is unrelated to arranging windows", command: .retile),
     ]
 
     private static let phrases: [String: TilerCommand] = [
         "retile": .retile, "tile": .retile, "snap": .retileActive, "retile window": .retileActive,
+        "left half": .snap(.leftHalf), "right half": .snap(.rightHalf), "top half": .snap(.topHalf), "bottom half": .snap(.bottomHalf),
+        "left third": .snap(.leftThird), "center third": .snap(.centerThird), "middle third": .snap(.centerThird), "right third": .snap(.rightThird),
         "smart": .smartRetile, "smart retile": .smartRetile, "smart snap": .smartRetileActive,
         "dwindle": .setLayout(.dwindle), "master": .setLayout(.master), "columns": .setLayout(.columns),
         "float": .toggleFloat, "promote": .promote,
