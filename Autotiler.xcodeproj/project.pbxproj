@@ -15,11 +15,16 @@
 		A000000000000000000000CD /* HotKeyCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000069 /* HotKeyCenter.swift */; };
 		A000000000000000000000CE /* LayoutAdvisor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000006A /* LayoutAdvisor.swift */; };
 		A000000000000000000000CF /* Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000006B /* Shortcuts.swift */; };
-		A000000000000000000000D0 /* Tiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000006C /* Tiler.swift */; };
-		A000000000000000000000D1 /* TilingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000006D /* TilingLayout.swift */; };
-		A000000000000000000000D2 /* WindowServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000006E /* WindowServer.swift */; };
+		A000000000000000000000D0 /* PlanApproval.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000006C /* PlanApproval.swift */; };
+		A000000000000000000000D1 /* Tiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000006D /* Tiler.swift */; };
+		A000000000000000000000D2 /* TilingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000006E /* TilingLayout.swift */; };
+		A000000000000000000000D3 /* WindowAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000006F /* WindowAgent.swift */; };
+		A000000000000000000000D4 /* WindowServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000070 /* WindowServer.swift */; };
+		A000000000000000000000DE /* WindowAgentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000079 /* WindowAgentTests.swift */; };
+		A000000000000000000000DF /* D3Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000067 /* D3Client.swift */; };
+		A000000000000000000000E0 /* WindowAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000006F /* WindowAgent.swift */; };
 		A000000000000000000000DC /* TilingLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000078 /* TilingLayoutTests.swift */; };
-		A000000000000000000000DD /* TilingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000006D /* TilingLayout.swift */; };
+		A000000000000000000000DD /* TilingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000006E /* TilingLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,10 +36,13 @@
 		A00000000000000000000069 /* HotKeyCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotKeyCenter.swift; sourceTree = "<group>"; };
 		A0000000000000000000006A /* LayoutAdvisor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutAdvisor.swift; sourceTree = "<group>"; };
 		A0000000000000000000006B /* Shortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcuts.swift; sourceTree = "<group>"; };
-		A0000000000000000000006C /* Tiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tiler.swift; sourceTree = "<group>"; };
-		A0000000000000000000006D /* TilingLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilingLayout.swift; sourceTree = "<group>"; };
-		A0000000000000000000006E /* WindowServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowServer.swift; sourceTree = "<group>"; };
+		A0000000000000000000006C /* PlanApproval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanApproval.swift; sourceTree = "<group>"; };
+		A0000000000000000000006D /* Tiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tiler.swift; sourceTree = "<group>"; };
+		A0000000000000000000006E /* TilingLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilingLayout.swift; sourceTree = "<group>"; };
+		A0000000000000000000006F /* WindowAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowAgent.swift; sourceTree = "<group>"; };
+		A00000000000000000000070 /* WindowServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowServer.swift; sourceTree = "<group>"; };
 		A00000000000000000000078 /* TilingLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilingLayoutTests.swift; sourceTree = "<group>"; };
+		A00000000000000000000079 /* WindowAgentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowAgentTests.swift; sourceTree = "<group>"; };
 		A00000000000000000000015 /* AutotilerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AutotilerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A00000000000000000000003 /* Autotiler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Autotiler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -77,9 +85,11 @@
 				A00000000000000000000069 /* HotKeyCenter.swift */,
 				A0000000000000000000006A /* LayoutAdvisor.swift */,
 				A0000000000000000000006B /* Shortcuts.swift */,
-				A0000000000000000000006C /* Tiler.swift */,
-				A0000000000000000000006D /* TilingLayout.swift */,
-				A0000000000000000000006E /* WindowServer.swift */,
+				A0000000000000000000006C /* PlanApproval.swift */,
+				A0000000000000000000006D /* Tiler.swift */,
+				A0000000000000000000006E /* TilingLayout.swift */,
+				A0000000000000000000006F /* WindowAgent.swift */,
+				A00000000000000000000070 /* WindowServer.swift */,
 			);
 			path = Autotiler;
 			sourceTree = "<group>";
@@ -88,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				A00000000000000000000078 /* TilingLayoutTests.swift */,
+				A00000000000000000000079 /* WindowAgentTests.swift */,
 			);
 			path = AutotilerTests;
 			sourceTree = "<group>";
@@ -189,9 +200,11 @@
 				A000000000000000000000CD /* HotKeyCenter.swift in Sources */,
 				A000000000000000000000CE /* LayoutAdvisor.swift in Sources */,
 				A000000000000000000000CF /* Shortcuts.swift in Sources */,
-				A000000000000000000000D0 /* Tiler.swift in Sources */,
-				A000000000000000000000D1 /* TilingLayout.swift in Sources */,
-				A000000000000000000000D2 /* WindowServer.swift in Sources */,
+				A000000000000000000000D0 /* PlanApproval.swift in Sources */,
+				A000000000000000000000D1 /* Tiler.swift in Sources */,
+				A000000000000000000000D2 /* TilingLayout.swift in Sources */,
+				A000000000000000000000D3 /* WindowAgent.swift in Sources */,
+				A000000000000000000000D4 /* WindowServer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,6 +214,9 @@
 			files = (
 				A000000000000000000000DC /* TilingLayoutTests.swift in Sources */,
 				A000000000000000000000DD /* TilingLayout.swift in Sources */,
+				A000000000000000000000DE /* WindowAgentTests.swift in Sources */,
+				A000000000000000000000DF /* D3Client.swift in Sources */,
+				A000000000000000000000E0 /* WindowAgent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

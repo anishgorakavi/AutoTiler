@@ -1,12 +1,10 @@
 import Foundation
 
 enum InterpreterError: LocalizedError {
-    case modelUnavailable
     case notUnderstood(String)
 
     var errorDescription: String? {
         switch self {
-        case .modelUnavailable: return "Could not reach Ollama. Is it running with d3:2b pulled?"
         case .notUnderstood(let text): return "Not a tiling command: \(text)"
         }
     }
@@ -51,6 +49,7 @@ enum CommandInterpreter {
         "retile": .retile, "tile": .retile, "snap": .retileActive, "retile window": .retileActive,
         "left half": .snap(.leftHalf), "right half": .snap(.rightHalf), "top half": .snap(.topHalf), "bottom half": .snap(.bottomHalf),
         "left third": .snap(.leftThird), "center third": .snap(.centerThird), "middle third": .snap(.centerThird), "right third": .snap(.rightThird),
+        "agent": .agentArrange, "arrange": .agentArrange,
         "smart": .smartRetile, "smart retile": .smartRetile, "smart snap": .smartRetileActive,
         "dwindle": .setLayout(.dwindle), "master": .setLayout(.master), "columns": .setLayout(.columns),
         "float": .toggleFloat, "promote": .promote,

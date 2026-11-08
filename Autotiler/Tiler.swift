@@ -6,6 +6,7 @@ enum TilerCommand: Equatable {
     case smartRetile
     case smartRetileActive
     case snap(SnapRegion)
+    case agentArrange
     case setLayout(LayoutKind)
     case cycleLayout
     case setGap(CGFloat)
@@ -31,6 +32,13 @@ final class Tiler {
     private var pinnedFocus: ManagedWindow?
 
     private static let monitorDefaultsKey = "targetDisplayID"
+    private static let approvalDefaultsKey = "requireApproval"
+
+    /// When on (the default), d3's agent placements are shown in a table and only applied after the user approves.
+    var requireApproval: Bool {
+        get { UserDefaults.standard.object(forKey: Self.approvalDefaultsKey) as? Bool ?? true }
+        set { UserDefaults.standard.set(newValue, forKey: Self.approvalDefaultsKey) }
+    }
 
     var targetScreen: NSScreen {
         let stored = UserDefaults.standard.object(forKey: Self.monitorDefaultsKey) as? UInt32
@@ -66,6 +74,10 @@ final class Tiler {
             syncOrder()
             guard let window = pinnedFocus ?? WindowServer.focusedWindow() else { return }
             smartRetileActive(window)
+            return
+        case .agentArrange:
+            syncOrder()
+            agentArrange()
             return
         case .snap(let region):
             guard let window = pinnedFocus ?? WindowServer.focusedWindow() else { return }
@@ -106,6 +118,28 @@ final class Tiler {
             return
         }
         retile()
+    }
+
+    /// d3 agent: decide a spot for every open window, optionally get the user's approval, then place them.
+    /// Placed windows float, like hand-snapped ones, so a later retile does not undo the plan.
+    private func agentArrange() {
+        let windows = order
+        guard !windows.isEmpty else { return }
+        let appNames = windows.map(WindowServer.appName)
+        let area = WindowServer.accessibilityFrame(of: targetScreen, excludingMenuBarAndDock: true)
+        Task { @MainActor in
+            do {
+                let spots = try await WindowAgent.plan(appNames: appNames)
+                if requireApproval,
+                   !PlanApproval.confirm(zip(spots, appNames).map { (suggestion: $0.displayName, app: $1) }) { return }
+                for (window, spot) in zip(windows, spots) {
+                    floating.insert(window)
+                    WindowServer.setFrame(spot.frame(in: area, gap: gap).integral, of: window)
+                }
+            } catch {
+                PlanApproval.inform(error.localizedDescription)
+            }
+        }
     }
 
     /// d3 picks the layout that suits the open apps; the geometry is still computed locally.

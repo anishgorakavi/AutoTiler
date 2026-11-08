@@ -2,6 +2,12 @@ import Foundation
 
 /// d3 is a decision model: one request scores a fixed list of choices in a single forward pass,
 /// so no text is generated and the prompt stays small.
+enum D3Error: LocalizedError {
+    case unavailable
+
+    var errorDescription: String? { "Could not reach Ollama. Is it running with d3:2b pulled?" }
+}
+
 enum D3Client {
     static let model = "d3:2b"
     static let minimumProbability = 0.5
@@ -14,7 +20,7 @@ enum D3Client {
 
     /// Returns the highest-scoring key of `criteria` with its probability. The API's own `confidence` field is a
     /// margin over the runner-up, which reads low even for clear wins, so callers threshold on probability.
-    /// Throws `modelUnavailable` if Ollama or the model is missing.
+    /// Throws `D3Error.unavailable` if Ollama or the model is missing.
     static func choose(state: String, instructions: String, criteria: [String: String]) async throws -> Answer {
         let body: [String: Any] = [
             "model": model,
@@ -32,7 +38,7 @@ enum D3Client {
               let decoded = try? JSONDecoder().decode(Response.self, from: data),
               let answer = decoded.answers["answer"],
               let probability = answer.probabilities[answer.choice] else {
-            throw InterpreterError.modelUnavailable
+            throw D3Error.unavailable
         }
         return Answer(choice: answer.choice, probability: probability)
     }

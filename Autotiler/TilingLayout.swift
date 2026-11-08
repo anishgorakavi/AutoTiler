@@ -10,6 +10,26 @@ enum LayoutKind: String, CaseIterable {
 enum SnapRegion: String, CaseIterable {
     case leftHalf, rightHalf, topHalf, bottomHalf
     case leftThird, centerThird, rightThird
+    case topLeft, topRight, bottomLeft, bottomRight
+    case maximized
+
+    /// Plain-language name, shown to the user and to d3.
+    var displayName: String {
+        switch self {
+        case .leftHalf: return "left half"
+        case .rightHalf: return "right half"
+        case .topHalf: return "top half"
+        case .bottomHalf: return "bottom half"
+        case .leftThird: return "left third"
+        case .centerThird: return "center third"
+        case .rightThird: return "right third"
+        case .topLeft: return "top left"
+        case .topRight: return "top right"
+        case .bottomLeft: return "bottom left"
+        case .bottomRight: return "bottom right"
+        case .maximized: return "full screen"
+        }
+    }
 
     /// Uses the same outer and inner gap as the tiling layouts so snapped windows line up with tiled ones.
     /// `area` is in Accessibility coordinates, so "top" is the smaller y.
@@ -20,6 +40,16 @@ enum SnapRegion: String, CaseIterable {
         case .leftThird: return TilingLayout.frames(count: 3, in: area, kind: .columns, gap: gap)[0]
         case .centerThird: return TilingLayout.frames(count: 3, in: area, kind: .columns, gap: gap)[1]
         case .rightThird: return TilingLayout.frames(count: 3, in: area, kind: .columns, gap: gap)[2]
+        case .maximized: return area.insetBy(dx: gap, dy: gap)
+        case .topLeft, .topRight, .bottomLeft, .bottomRight:
+            let usable = area.insetBy(dx: gap, dy: gap)
+            let width = (usable.width - gap) / 2
+            let height = (usable.height - gap) / 2
+            let isLeft = self == .topLeft || self == .bottomLeft
+            let isTop = self == .topLeft || self == .topRight
+            return CGRect(x: isLeft ? usable.minX : usable.minX + width + gap,
+                          y: isTop ? usable.minY : usable.minY + height + gap,
+                          width: width, height: height)
         case .topHalf, .bottomHalf:
             let usable = area.insetBy(dx: gap, dy: gap)
             let height = (usable.height - gap) / 2

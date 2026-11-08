@@ -84,6 +84,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
         addItem(to: menu, "Smart Retile All (d3)  (⌃⌥T)") { $0.perform(.smartRetile) }
         addItem(to: menu, "Smart Retile Active (d3)  (⌃⌥⇧T)") { $0.perform(.smartRetileActive) }
+        addItem(to: menu, "Place All Windows (d3 agent)  (⌃⌥A)") { $0.perform(.agentArrange) }
+        addItem(to: menu, "Ask Before Applying d3 Placements") { $0.requireApproval.toggle() }.state = tiler.requireApproval ? .on : .off
         addItem(to: menu, "Retile All  (⌃⌥R)") { $0.perform(.retile) }
         addItem(to: menu, "Retile Active Window  (⌃⌥⇧R)") { $0.perform(.retileActive) }
         addItem(to: menu, "Command…  (⌃⌥Space)") { [weak self] _ in self?.showPrompt() }

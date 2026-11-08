@@ -31,6 +31,7 @@ enum Shortcuts {
     static let all: [Shortcut] = [
         Shortcut(section: "Smart retile (d3)", key: "T", keyCode: kVK_ANSI_T, modifiers: base, title: "d3 picks the best layout, retile all windows", action: .command(.smartRetile)),
         Shortcut(section: "Smart retile (d3)", key: "T", keyCode: kVK_ANSI_T, modifiers: withShift, title: "d3 decides: snap, promote or float the active window", action: .command(.smartRetileActive)),
+        Shortcut(section: "Agent (d3)", key: "A", keyCode: kVK_ANSI_A, modifiers: base, title: "d3 agent places every open window (up to 4)", action: .command(.agentArrange)),
         Shortcut(section: "Manual retile", key: "R", keyCode: kVK_ANSI_R, modifiers: base, title: "Retile all windows, current layout", action: .command(.retile)),
         Shortcut(section: "Manual retile", key: "R", keyCode: kVK_ANSI_R, modifiers: withShift, title: "Retile only the active window", action: .command(.retileActive)),
         Shortcut(section: "Manual retile", key: "1", keyCode: kVK_ANSI_1, modifiers: base, title: "Dwindle layout", action: .command(.setLayout(.dwindle))),

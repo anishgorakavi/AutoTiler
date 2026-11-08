@@ -70,4 +70,28 @@ final class TilingLayoutTests: XCTestCase {
             XCTAssertTrue(usable.insetBy(dx: -0.001, dy: -0.001).contains(region.frame(in: area, gap: gap)), "\(region)")
         }
     }
+
+    func testQuartersFormAGridWithGapsAndFillTheArea() {
+        let topLeft = SnapRegion.topLeft.frame(in: area, gap: gap)
+        let topRight = SnapRegion.topRight.frame(in: area, gap: gap)
+        let bottomLeft = SnapRegion.bottomLeft.frame(in: area, gap: gap)
+        let bottomRight = SnapRegion.bottomRight.frame(in: area, gap: gap)
+        XCTAssertEqual(topLeft.minX, usable.minX)
+        XCTAssertEqual(topLeft.minY, usable.minY)
+        XCTAssertEqual(bottomRight.maxX, usable.maxX, accuracy: 0.001)
+        XCTAssertEqual(bottomRight.maxY, usable.maxY, accuracy: 0.001)
+        XCTAssertEqual(topRight.minX - topLeft.maxX, gap, accuracy: 0.001)
+        XCTAssertEqual(bottomLeft.minY - topLeft.maxY, gap, accuracy: 0.001)
+        XCTAssertEqual(topRight.minY, topLeft.minY)
+        XCTAssertEqual(bottomRight.minX, topRight.minX)
+        XCTAssertEqual(topLeft.size, bottomRight.size)
+    }
+
+    func testMaximizedFillsTheUsableArea() {
+        XCTAssertEqual(SnapRegion.maximized.frame(in: area, gap: gap), usable)
+    }
+
+    func testEveryRegionHasADistinctName() {
+        XCTAssertEqual(Set(SnapRegion.allCases.map(\.displayName)).count, SnapRegion.allCases.count)
+    }
 }
